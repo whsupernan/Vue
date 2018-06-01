@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <style>
+        body{
+            font-family: "微软雅黑";
+        }
+        p.login{
+            text-align: right;
+            margin: 0px 20px 0px 0px;
+            width: 100%;
+        }
+        div.fade{  /*定义遮罩*/
+            width: 100%;  /*遮罩的宽度是整个浏览器窗口的宽度*/
+            height: 100%; /*遮罩的高度是整个浏览器窗口的高度*/
+            background-color: rgba(0, 0, 0, 0.5);  /*定义遮罩的背景颜色为黑色半透明，0.5就是半透明*/
+            position: absolute;
+            top: 0px;
+            left: 0px;
+        }
+        div.login{
+            width: 400px;
+            height: 300px;
+            background-color: #ffffff;
+            border: 1px solid #ffffff;
+            position: absolute;
+            top: 50%; /*登录框的上边框与遮罩上边框的距离是整个遮罩高度的50%*/
+            left: 50%;/*登录框的左边框与遮罩左边框的距离是整个遮罩宽度的50%*/
+            margin-top: -150px;  /*将登录框向上移动150px，150px正好是登录框高度的一半*/
+            margin-left: -200px; /*将登录框向左移动200px，200px正好是登录框宽度的一半*/
+        }
+        h3{
+            text-align: right;
+            margin: 0px 10px 0px 0px;
+            cursor: pointer;
+        }
+        h2{
+            text-align: center;
+            margin: 0px;
+        }
+        p.username, p.password, p.btn{
+            text-align: center;
+        }
+        p.username, p.btn{
+            margin-top: 60px;
+        }
+        p.message{
+            font-size: 12px;
+            color: red;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+       <p class="login"><a href="#" @click="handleOpen">登录</a></p>
+       <p>网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容</p>
+       <div class="fade" v-show="isShow==true"> <!--当变量isShow的值为true的时候条件isShow==true成立，则div会显示出来-->
+            <div class="login">
+                <h3 @click="handleClose">X</h3>
+                <h2>用户登录</h2>
+                <p class="username">用户名：<input type="text" v-model="username"></p>
+                <p class="password">密码：<input type="password" v-model="password"></p>
+                <p class="message" v-show="isShowMessage">您输入的用户名或密码有错误！</p>
+                <p class="btn"><button @click="handleLogin">确定</button></p>
+            </div>
+       </div>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        var myData = {
+            isShow: false,
+            username: "",
+            password: "",
+            correctUsername: "abcde",
+            correctPassword: "123456",
+            isShowMessage: false
+        };
+
+        var app = new Vue({
+            el: "#app",
+            data: myData,
+            methods: {
+                handleOpen: function(){
+                    myData.isShow = true;
+                },
+                handleClose: function(){
+                    myData.isShow = false;
+                },
+                handleLogin: function(){
+                    if ((myData.username==myData.correctUsername) && (myData.password==myData.correctPassword)){
+                        myData.isShow = false;
+                        myData.isShowMessage = false;
+                    }
+                    else{
+                        myData.isShow = true;
+                        myData.isShowMessage = true;
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
