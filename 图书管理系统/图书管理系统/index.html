@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>图书管理系统</title>
+    <style type="text/css">
+        #app{
+            width:960px;
+            margin-top:50px;
+            min-height;
+            margin:auto;
+            background:green;
+            opacity:0.8;
+            position:fixed;
+            top:50px;
+            left:200px;
+        }
+        li{
+            color:yellowgreen;
+        }
+    </style>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="vue25.js"></script>
+</head>
+<body>
+    <div id="app">
+        <br>
+        搜索:&nbsp;<input type="text" v-model="searchText" @keyUp.Enter="handleSearch()"><br><br>
+
+         排序：&nbsp;<button type="button"  class="btn btn-danger"@click="orderBooks()">升序&nbsp;</button>&nbsp;<button type="button" class="btn btn-danger" @click="sortedBooks()">降序</button><br><br>
+
+        书名:<input type="text" name="" v-model="b">
+        作者:<input type="text" name="" v-model="a">
+        <button type="text" @click="addTial" class="btn btn-success">在末尾添加</button>
+        <button type="text" @click="addBegin" class="btn btn-success">在开头添加</button>
+        <button type="text" @click="delTail" class="btn btn-danger">删除末尾的</button>
+        <button type="text" @click="delBegin" class="btn btn-danger">删除开头的</button>
+        <ul>
+            <template v-for="(book,index) in books">
+               <li>书名：{{ index+1 }}-{{ book.name }}</li>
+               <li>作者：{{ index+1 }}-{{ book.author}}</li>
+            </template>
+        </ul>
+    </div>
+</body>
+<script type="text/javascript">
+     var myData={
+        books:[
+             {
+                name:'《Vue.js实战》',
+                author:'梁灏 '
+             },
+             {
+                name:'《JavaScript语言精粹》',
+                author:'Douglas Crockford'
+             },
+             {
+                name:'《JavaScript高级程序设计》',
+                author:'Nicholas c.Zakas'
+             }
+        ],
+        b:"",
+        a:"",
+        searchText:"",
+        created:function(){
+                myData.searchBooks=myData.books;
+            }
+     };
+     var data = new Vue({
+        el:"#app",
+        data:myData,
+        methods:{
+            addTial:function(){
+                myData.books.push({
+                    name:myData.b,
+                    author:myData.a
+                });
+            },
+           addBegin:function(){
+                myData.books.unshift({
+                    name:myData.b,
+                    author:myData.a
+                });
+            },
+            delTail:function(){
+                myData.books.pop({
+                    name:myData.b,
+                    name:myData.a
+                });
+            },
+            delBegin:function(){
+                myData.books.shift({
+                    name:myData.b,
+                    name:myData.a
+                });
+            },
+            handleSearch:function(){
+                myData.searchBooks=myData.books.filter(function(currentBook) {
+                    return currentBook.name.match(myData.searchText);
+                });
+            },
+            sortedBooks:function(){
+                return myData.books.sort(function(a,b){
+                    return a.name.length<b.name.length;
+                });
+            },
+            orderBooks:function(){
+                return myData.books.sort(function(a,b){
+                    return a.name.length>b.name.length;
+                });
+            }
+        }
+     });
+</script>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>用computed方法实现简便计算器--赵运升</title>
+    <link rel="stylesheet" href="">
+    <style type="text/css">
+        h1{
+            color:green;
+        }
+        p{
+            color:white;
+            font-weight:100;
+            background:yellowgreen;
+            width:10%;
+            text-align:center;
+        }
+        input{
+            background:yellowgreen;
+            color:white;
+            text-align:center;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+</head>
+<body>
+     <div id="app">
+         <h1>用conputed方法实现简便计算器</h1>
+         <input type="text"  v-model.number="a">
+         <input type="text"  v-model="operator" size="1">
+         <input type="text"  v-model.number="b">
+         <p> {{ a }} {{ operator }} {{ b }} = {{ c }}</p>
+    </div>
+
+    <script type="text/javascript">
+         var app = new Vue({
+            el:"div",
+            data:{
+                a:0,
+                b:0,
+                operator:"+"
+            },
+            computed:{
+                c:function(){
+                    switch (this.operator){
+                        case "+":{
+                            if((typeof(this.a) == "number") && (typeof(this.b) == "number"))
+                                return (this.a + this.b);
+                            else
+                                return("无法完成计算，请重新输入");
+                        }
+
+                        case "-":{
+                                if((typeof(this.a) == "number") && (typeof(this.b) == "number"))
+                                    return (this.a - this.b);
+                                else
+                                    return("无法完成计算，请重新输入");
+                            }
+
+                        case "*":{
+                                if((typeof(this.a) == "number") && (typeof(this.b) == "number"))
+                                    return (this.a * this.b);
+                                else
+                                    return("无法完成计算，请重新输入");
+                            }
+
+                        case "/":{
+                                if((typeof(this.a) == "number") && (typeof(this.b) == "number") &&(this.b != 0))
+                                    return (this.a / this.b);
+                                else
+                                    return("无法完成计算，请重新输入");
+                            }
+                    }
+                }
+            }
+         })
+    </script>
+</body>
+</html>
