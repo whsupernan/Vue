@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <style>
+        p.login{
+            text-align: right;
+        }
+        div.fade{  /*定义遮罩外观*/
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            z-index: 9999;
+        }
+        .fade-enter-active, .fade-leave-active {
+           transition: opacity .5s;
+        }
+       .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+           opacity: 0;
+        }
+        div.login{
+            width:400px;
+            height:300px;
+            background-color:white;
+            border:1px solid black;
+            position:absolute;
+            top:50%;
+            left:50%;
+            margin-top:-150px;
+            margin-left:-200px;
+        }
+        div.login h3{
+            text-align:right;
+            margin:15px 15px 0px 0px;
+            cursor:pointer;
+            color:red;
+        }
+        div.login h2{
+            color:red;
+            text-align:center;
+        }
+        div.login p{
+            text-align:center;
+            color:green;
+        }
+        div.login p button{
+            color:orange;
+        }
+        div.login p.danger{
+            color:red;
+        }
+    </style>
+
+</head>
+<body>
+    <div id="app">
+        <p class="login"><a href="#" @click="handleOpen">登录</a></p>
+        <p class="content">网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容</p>
+        <transition name="fade">
+            <div class="fade" v-show="isShow">
+                <div class="login">
+                    <h3 @click="handleClose">X</h3>
+                    <h2>用户登录</h2>
+                    <p>用户名:<input type="text" name="username"></p>
+                    <p>密&nbsp;&nbsp;&nbsp;码:<input type="password" name="password"></p>
+                    <p v-show="isShowMessage" class="danger">请输入用户名或密码！！</p>
+                    <p v-show="isShowCorrectMessage" class="success">您的用户名或密码输入有误！！</p>
+                    <p><button @click="handleLogin">确定</button></p>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <script src="vue.js"></script>
+    <script>
+        var myData = {
+            isShow: false,// 控制遮罩是否显示
+            userName:"",
+            passWord:"",
+            isShowMessage:false,
+            isShowCorrectMessage:false,
+            isShowCorrectUsername:"zhaoyunsheng",
+            isShowCorrectPassword:"123456"
+        };
+
+        var app = new Vue({
+            el: "#app",
+            data: myData,
+            methods: {
+                handleOpen: function(){
+                    myData.isShow = true;   //打开遮罩
+                },
+                handleClose: function(){
+                    myData.isShow = false;  //关闭遮罩
+                },
+                handleLogin:function(){
+                    if((myData.username=="")||(myData.password==""))
+                        myData.isShowMessage=true;
+                    else
+                        myData.isshowMessage=false;
+                    if((myData.isShowCorrectUsername != "zhaoyunsheng") || (myData.isShowCorrectPassword != "123456"))
+                        myData.isShowCorrectMessage = true;
+                    else
+                        myData.isShowCorrectMessage = false;
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>
