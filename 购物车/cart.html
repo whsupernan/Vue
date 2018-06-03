@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <style>
+        table{
+            width: 600px;
+            height: 200px;
+            border: 1px solid #000000;
+            border-collapse: collapse;
+            text-align: center;
+        }
+        td, th{
+            border: 1px solid #000000;
+
+        }
+        th{
+            background-color: #DDDDDD;
+        }
+        input{
+            width: 20px;
+        }
+        [v-cloak]{
+        	display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="app" v-cloak>
+    	<template v-if="goods.length > 0 "><!--当数组长度大于0时，则显示table和p标签-->
+	        <table>	
+	            <tr><th>编号</th><th>商品名称</th><th>商品单价</th><th>购买数量</th>
+	            	<th class="clickable" @click="handleSort">每件商品价格<span v-show="sortType == 2">↑</span><span v-show="sortType == 3">↓</span></th><th>操作</th></tr>
+	            <template v-for="(item, index) in goods">
+	            <tr><td>{{ index+1 }}</td><td>{{ item.name }}</td><td>{{ item.price }}</td>
+	            	<td><button @click="handleReduce(item)" :disabled="item.count == 1">-</button>
+	            		<input type="text" v-model="item.count">
+	            		
+	            		<button @click="handleAdd(item)">+</button></td><td>￥{{ item.price*item.count}}</td>
+	            		<td><button @click="handleDel(index)">移除</button></td>
+	            </tr>
+	            </template>
+	        </table>
+        </template>
+        <template v-else><!--当goods.length>0条件不成立的时候，则显示购物车为空的显示。-->
+        	<p>购物车为空！！</p>
+        </template>
+        <p>总价：￥{{ total }}</p>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        var myData = {
+            goods: [
+                {
+                    name: "iPhone7",
+                    price: 6188,
+                    count: 1
+                },
+                {
+                    name: "iPad Pro",
+                    price: 5888,
+                    count: 1
+                },
+                {
+                    name: "MacBook Pro",
+                    price: 21488,
+                    count: 1
+                }
+            ],
+            sortType:1  //sortType用于记录当前的排序类型，sortTyped的值为1表示无序，为2表示升序，为3表示降序
+        };
+
+        var app = new Vue({
+            el: "#app",
+            data: myData,
+            methods: {
+                handleReduce: function(currentItem){
+                    currentItem.count--;
+                },
+                handleAdd: function(currentItem){
+                    currentItem.count++;
+                },
+                handleDel:function(currentIndex){//currentIndex的值就是用户单机移除按钮所在的数组元素
+                	myData.goods.splice(currentIndex,1)
+                },
+                handleSort:function(){
+                	myData.sortType++;
+                	if(myData.sortType>3)//可以让sortType的值在超过3以后，返回值为2，升序排列
+                	myData.sortType == 2;
+                	if(myData.sortType ==2)
+                	myData.goods.sort(function(a,b){
+                		return a.price *a.count > b.price*b.count;
+                	});
+                	if(myData.sortType == 3)s
+                	myData.goods.sort(function(a,b){
+                		return a.price*a.count < b.price*b.count;
+                	})
+                	
+                }
+            },
+            computed: {
+                total: function(){
+                    a = 0;
+                    for (i=0; i<myData.goods.length; i++)
+                        a = a + myData.goods[i].price * myData.goods[i].count;
+                    return a;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+/*
+* @Author: Marte
+* @Date:   2018-03-21 10:46:46
+* @Last Modified by:   Marte
+* @Last Modified time: 2018-03-21 11:38:55
+*/
+p.size1{
+    font-size:20px;
+}
+p.size2{
+    font-size:40px;
+}
+button{
+    background:yellowgreen;
+    color:white;
+}

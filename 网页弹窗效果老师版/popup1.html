@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <style>
+        p.login{
+            text-align: right;
+        }
+        div.fade{  /*定义遮罩外观*/
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            z-index: 9999;
+        }
+        .fade-enter-active, .fade-leave-active {
+           transition: opacity .5s;
+        }
+        .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+           opacity: 0;
+        }
+        div.login{
+            width: 400px;
+            height: 300px;
+            background-color: #ffffff;
+            border: 1px solid #000000;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -150px;
+            margin-left: -200px;
+        }
+        div.login h3{
+            text-align: right;
+            margin: 0px 20px 0px 0px;
+            cursor: pointer;
+        }
+        div.login p, div.login h2{
+            text-align: center;
+        }
+    </style>
+
+</head>
+<body>
+    <div id="app">
+        <p class="login">
+            <span v-if="((username!=correctUsername) || (password!=correctPassword) || (isShow==true))">
+                <a href="#" @click="handleOpen">登录</a>
+            </span>
+             <span v-else >
+                <a href="#" @click="handleOpen">欢迎您，{{ username}}！  | <a href="#" @click="handleLogout">注销</a></a>
+            </span>
+        </p>
+        <p class="content">网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容网页内容</p>
+        <transition name="fade">
+            <div class="fade" v-show="isShow">
+                <div class="login">
+                    <h3 @click="handleClose">X</h3>
+                    <h2>用户登录</h2>
+                    <p>用户名: <input type="text" v-model="username"></p>
+                    <p>密码：<input type="password" v-model="password"></p>
+                    <p v-show="isShowEmptyMessage">您输入的用户名或密码为空！无法登录！</p>
+                    <p v-show="isShowWrongMessage">您输入的用户名或密码是错误的！</p>
+                    <p><button @click="handleLogin">确定</button></p>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <script src="vue.js"></script>
+    <script>
+        var myData = {
+            isShow: false,  // 控制遮罩是否显示
+            username: "",   //将用户输入的用户名保存在该变量中
+            password: "",   //将用户输入的密码保存到该变量中
+            isShowEmptyMessage: false,  //用于控制是否显示用户输入的用户名和密码为空的提示
+            correctUsername: "zys", //用于控制用户输入正确的用户名 --其实来自于数据库
+            correctPassword: "123456", //用于控制用户输入正确的密码  --也来自于数据库
+            isShowWrongMessage: false  //用于控制是否显示用户输入的用户名和密码是错误的提示
+        };
+
+        var app = new Vue({
+            el: "#app",
+            data: myData,
+            methods: {
+                handleOpen: function(){
+                    myData.isShow = true;   //打开遮罩
+                },
+                handleClose: function(){
+                    myData.isShow = false;  //关闭遮罩
+                },
+                handleLogin: function(){
+                    //用于检测用户输入的用户名或密码是否为空
+                    if ((myData.username=="") || (myData.password=="")){
+                        myData.isShowEmptyMessage = true;
+                        myData.isShowWrongMessage = false;
+                    }
+                    else{
+                           myData.isShowEmptyMessage = false;
+                           //用于检测用户名和密码是否正确，能够进行该检测的前提是是用户输入的用户名和密码不为空
+                           if ((myData.username != myData.correctUsername) || (myData.password != myData.correctPassword))
+                                 myData.isShowWrongMessage = true;
+                           else //只有当用户名和密码都正确才能执行
+                                 myData.isShowWrongMessage = false;
+                                 myData.isShow = false;  //如果用户名和密码都输入正确，那么遮罩和弹窗都将消失
+
+
+                    }
+
+
+                },
+                handleLogout:function(){
+                    myData.username = "";
+                    myData.password = "";
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link rel="stylesheet" href="">
+
+</head>
+<body>
+    <div id="app">
+        book:<input type="text" name="" v-model="bn">
+        author:<input type="text" name="" v-model="a">
+        <button type="text" @click="addTail">End add</button>
+        <button type="text" @click="delTail">End delete</button>
+        <ul>
+            <!-- <li>{{ books[0].bookName}}  {{books[1].author}} {{books[2].pub}} </li> -->
+            <!-- <li v-for="book in books">{{book.bookName}} {{book.author}} {{book.pub}}</li> -->
+            <template v-for="(book,index) in books">
+                <li>{{ index+1 }}</li><hr>
+                <li>{{book.bookName}}</li>
+                <li>{{book.author}}</li>
+            </template>
+        </ul>
+    </div>
+    <script src="vue.js"></script>
+    <script type="text/javascript">
+         var myData ={
+            books:[
+               {
+                bookName:"《Vue.js》",
+                author:"Liang Hao",
+                pub:"qinghuadaxuechubanshe",
+               },
+               {
+                bookName:"《JavaScript》",
+                author:"Douglas Crockford",
+                pub:"qinghuadaxuechubanshe",
+               },
+               {
+                bookName:"《JQuery》",
+                author:"Douglas",
+                pub:"qinghuadaxuechubanshe",
+               }
+            ],
+            bn:"",
+            a:""
+         };
+         var app = new Vue({
+            el:"#app",
+            data:myData,
+            methods:{
+                addTail:function(){
+                    myData.books.push({
+                        bookName:myData.bn,
+                        author:myData.a
+                    });
+               },
+               delTail:function(){
+                    myData.books.pop({
+                        bookName:myData.bn,
+                        author:myData.a
+                    });
+               }
+           }
+
+         });
+    </script>
+</body>
+</html>

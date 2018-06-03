@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>删除线</title>
+    <style type="text/css">
+        .a{
+            text-decoration:line-through;
+            font-weight:bold;
+            color:red;
+        }
+        .b{
+            text-decoration:none;
+            font-weight:normal;
+          }
+        .c{
+            font-style:italic;
+        }
+        .d{
+            text-decoration:underline;
+        }
+    </style>
+    <link rel="stylesheet" href="">
+</head>
+<body>
+    <div id="app">
+        <span v-bind:class="{'a':isOk,'b': !isOk}" v-bind:class="[activeCls,errorCls]">今天看了一个小时的Vue.js教学视频</span>
+        <!-- v-bind用于动态绑定标签的属性，使得标签的属性值可以动态变化 -->
+        <button class="btn" v-on:click="handleClick">{{ text }}</button>
+        <!-- v-on 是用来监听事件，（监听click事件，用handClick来监听事件） -->
+    </div>
+
+    <script src="vue.js"></script>
+    <script type="text/javascript">
+         var app = new Vue({
+            el:"div",
+            data:{
+                 isOk:1,
+                 text:"未完成",
+                 activeCls:"a",
+                 errorCls:"d"
+            },
+            methods:{
+                handleClick:function(){
+                    if(this.isOk == 1)
+                    this.isOk = 0;
+                    else
+                    this.isOk = 1;
+
+                    if(this.text ==="未完成")
+                        this.text = "已完成";
+                    else
+                        this.text = "未完成";
+                }
+            }
+         });
+    </script>
+</body>
+</html>
